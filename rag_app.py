@@ -56,27 +56,27 @@ def retrieve_docs(vectorstore, query):
 # ------------------- LLM ANSWER -------------------
 
 
- def generate_answer(query, docs):
-     context = "\n\n".join([doc.page_content for doc in docs])
+def generate_answer(query, docs):
+    context = "\n\n".join([doc.page_content for doc in docs])
 
-     prompt = f"""You are a professional financial research assistant.
- Answer ONLY using the context provided below.
- If the answer is not in the context, say: "I couldn't find that in the document."
+    prompt = f"""You are a professional financial research assistant.
+Answer ONLY using the context provided below.
+If the answer is not in the context, say: "I couldn't find that in the document."
 
- CONTEXT:
- {context}
+CONTEXT:
+{context}
 
- QUESTION:
- {query}
+QUESTION:
+{query}
 
- Provide a clear, structured answer with bullet points where appropriate.
- """
+Provide a clear, structured answer with bullet points where appropriate.
+"""
      response = client.chat.completions.create(
          model="llama-3.3-70b-versatile",
          messages=[{"role": "user", "content": prompt}],
          temperature=0.3                        # low = more factual, less creative
-     )
-     return response.choices[0].message.content
+ )
+    return response.choices[0].message.content
 
 # ------------------- UI -------------------
 uploaded_file = st.file_uploader("Upload a PDF", type="pdf")
