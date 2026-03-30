@@ -76,7 +76,7 @@ Provide a clear, structured answer with bullet points where appropriate.
          messages=[{"role": "user", "content": prompt}],
          temperature=0.3                        # low = more factual, less creative
  )
-    return response.choices[0].message.content
+     return response.choices[0].message.content
 
 # ------------------- UI -------------------
 uploaded_file = st.file_uploader("Upload a PDF", type="pdf")
