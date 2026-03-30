@@ -54,8 +54,6 @@ def retrieve_docs(vectorstore, query):
     return vectorstore.similarity_search(query, k=4)
 
 # ------------------- LLM ANSWER -------------------
-
-
 def generate_answer(query, docs):
     context = "\n\n".join([doc.page_content for doc in docs])
 
@@ -71,12 +69,12 @@ QUESTION:
 
 Provide a clear, structured answer with bullet points where appropriate.
 """
-     response = client.chat.completions.create(
-         model="llama-3.3-70b-versatile",
-         messages=[{"role": "user", "content": prompt}],
-         temperature=0.3                        # low = more factual, less creative
- )
-     return response.choices[0].message.content
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.3                        # low = more factual, less creative
+    )
+    return response.choices[0].message.content
 
 # ------------------- UI -------------------
 uploaded_file = st.file_uploader("Upload a PDF", type="pdf")
