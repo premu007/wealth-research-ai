@@ -138,4 +138,4 @@ if uploaded_file:
 
 # ------------------- FOOTER -------------------
 st.write("---")
-st.caption("Built by Prem | Wealth Research AI | RAG System | Powered by Groq + Llama 3.3 + HuggingFace")
+st.caption("Built by Prem.C| Wealth Research AI | RAG System | Powered by Groq + Llama 3.3 + HuggingFace")
