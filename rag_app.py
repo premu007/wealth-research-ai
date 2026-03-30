@@ -54,65 +54,29 @@ def retrieve_docs(vectorstore, query):
     return vectorstore.similarity_search(query, k=4)
 
 # ------------------- LLM ANSWER -------------------
-def generate_answer(query, docs):
-    context = "\n\n".join([doc.page_content for doc in docs])
 
-    prompt = f"""
-You are a professional financial research analyst.
 
-Your task is to analyze the provided document context and answer the query.
+ def generate_answer(query, docs):
+     context = "\n\n".join([doc.page_content for doc in docs])
 
-STRICT RULES:
-- Use ONLY the provided context
-- Do NOT hallucinate
-- If answer not found, say: "I couldn't find that in the document."
+     prompt = f"""You are a professional financial research assistant.
+ Answer ONLY using the context provided below.
+ If the answer is not in the context, say: "I couldn't find that in the document."
 
-CONTEXT:
-{context}
+ CONTEXT:
+ {context}
 
-QUESTION:
-{query}
+ QUESTION:
+ {query}
 
-Provide output STRICTLY in this format:
-
-📊 Key Findings:
-- Bullet points summarizing key information from document
-
-📈 Opportunities / Positives:
-- Bullet points
-
-⚠️ Risks / Concerns:
-- Bullet points
-
-🧠 AI Interpretation:
-- What this means in practical terms
-
-🎯 Final Insight:
-- One clear takeaway or conclusion
-
-Keep it precise, structured, and decision-oriented.
-"""
-#def generate_answer(query, docs):
-    #context = "\n\n".join([doc.page_content for doc in docs])
-
-   # prompt = f"""You are a professional financial research assistant.
-#Answer ONLY using the context provided below.
-#If the answer is not in the context, say: "I couldn't find that in the document."
-
-#CONTEXT:
-#{context}
-
-#QUESTION:
-#{query}
-
-#Provide a clear, structured answer with bullet points where appropriate.
-#"""
-  #  response = client.chat.completions.create(
-    #    model="llama-3.3-70b-versatile",
-     #   messages=[{"role": "user", "content": prompt}],
-      #  temperature=0.3                        # low = more factual, less creative
- #   )
-   # return response.choices[0].message.content
+ Provide a clear, structured answer with bullet points where appropriate.
+ """
+     response = client.chat.completions.create(
+         model="llama-3.3-70b-versatile",
+         messages=[{"role": "user", "content": prompt}],
+         temperature=0.3                        # low = more factual, less creative
+     )
+     return response.choices[0].message.content
 
 # ------------------- UI -------------------
 uploaded_file = st.file_uploader("Upload a PDF", type="pdf")
